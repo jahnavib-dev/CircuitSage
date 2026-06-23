@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local configuration
+.env
+.env.local
+
+# Database storage
+data/chroma_db/
+
+# Session cache
+memory/session_*.json
+
+# OS files
+.DS_Store
+Thumbs.db
