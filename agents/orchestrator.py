@@ -19,8 +19,6 @@ load_dotenv()
 
 from google import genai
 from google.genai import types
-from google.adk import Agent
-from google.adk.runners import InMemoryRunner
 from memory.session_memory import SessionMemory
 from agents.query_agent import QueryAgent
 from agents.compare_agent import CompareAgent
@@ -78,7 +76,7 @@ class OrchestratorAgent:
 
         try:
             response = self.genai_client.models.generate_content(
-                model="gemini-1.5-flash-8b",
+                model="gemini-2.5-flash",
                 contents=prompt
             )
             cleaned = response.text.strip()
