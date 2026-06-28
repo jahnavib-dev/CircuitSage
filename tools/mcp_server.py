@@ -16,11 +16,7 @@ if project_root not in sys.path:
 from tools.pdf_ingestor import ingest_pdf
 
 # 1. Initialize the FastMCP server with our branding
-mcp = FastMCP(
-    "CircuitSage",
-    title="CircuitSage Datasheet Ingestion Server",
-    description="MCP Server exposing datasheet ingestion functionality for CircuitSage"
-)
+mcp = FastMCP("CircuitSage")
 
 # 2. Define the ingestion tool
 @mcp.tool()
