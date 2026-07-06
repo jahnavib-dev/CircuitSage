@@ -20,7 +20,7 @@ COLLECTION_NAME = "circuitsage_datasheets"
 print("[CircuitSage·Ingestor] Loading SentenceTransformer model 'all-MiniLM-L6-v2'...")
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
-def ingest_pdf(pdf_path: str, component_name: Optional[str] = None) -> int:
+def ingest_pdf(pdf_path: str, component_name: Optional[str] = None, original_filename: Optional[str] = None) -> int:
     """
     Loads a PDF datasheet, splits it into chunks of size 500 with 50 overlap,
     generates embeddings using sentence-transformers, and stores them in ChromaDB.
@@ -35,11 +35,10 @@ def ingest_pdf(pdf_path: str, component_name: Optional[str] = None) -> int:
     if not os.path.exists(pdf_path):
         raise FileNotFoundError(f"Datasheet file not found at {pdf_path}")
 
-    # Derived component name from file name if not provided
-    filename = os.path.basename(pdf_path)
+   # Derived component name from file name if not provided
+    filename = original_filename or os.path.basename(pdf_path)
     if not component_name:
         component_name = os.path.splitext(filename)[0]
-    
     # Standardize component name (uppercase, trimmed)
     component_name = component_name.strip().upper()
 
@@ -98,7 +97,7 @@ def ingest_pdf(pdf_path: str, component_name: Optional[str] = None) -> int:
     # Add items to ChromaDB collection
     collection.add(
         ids=ids,
-        embeddings=embeddings.tolist(),
+        embeddings=embeddings,
         metadatas=metadatas,
         documents=chunks
     )

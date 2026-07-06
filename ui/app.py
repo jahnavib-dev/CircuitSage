@@ -207,8 +207,12 @@ if uploaded_file is not None:
                     temp_path = tmp_file.name
                 
                 # Run ingestion
-                num_chunks = ingest_pdf(temp_path, component_name_input if component_name_input else None)
-                
+                # Run ingestion
+                num_chunks = ingest_pdf(
+                    temp_path,
+                    component_name_input if component_name_input else None,
+                    original_filename=uploaded_file.name,
+                )
                 # Cleanup temp file
                 os.unlink(temp_path)
                 
